@@ -1,12 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CRUD.Domain.RepositoryInterface;
+using CRUD.Infrastructure.DataAccess;
+using CRUD.Infrastructure.RepositoryImplemetation;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore; 
 
 namespace CRUD.Infrastructure.DependencyInjection
 {
     public static class ServiceContainer
     {
-        public static IServiceCollection AddInfrustructureService
-            ( this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureService
+            ( this IServiceCollection services, IConfiguration config)
         {
+            services.AddDbContext<AppDbContext> (
+                o => o.UseSqlServer(config.GetConnectionString("cleanArchitecture")));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
             return services;
         }
     }
