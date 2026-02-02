@@ -13,7 +13,7 @@ namespace CRUD.Infrastructure.DependencyInjection
             ( this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<AppDbContext> (
-                o => o.UseSqlServer(config.GetConnectionString("cleanArchitecture")));
+                o => o.UseSqlServer(config.GetConnectionString("cleanArchitectureDb")));
 
             services.AddScoped<IProductRepository, ProductRepository>();
             return services;
